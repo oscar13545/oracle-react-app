@@ -1,24 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import GetData from './Components/GetData/GetData';
+import Navbar from './Components/Navbar/Navbar';
+import PostData from './Components/PostData/PostData';
+import GetPres from './Components/GetPres/GetPres';
+import PostPres from './Components/PostPres/PostPres';
 
 function App() {
+  //
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Navbar/>
+        <Routes>
+          <Route exact path="/" element={<div className='App'><GetData/></div>}/>
+          <Route exact path="/Insert" element={<div className='App'><PostData/></div>}/>
+          <Route exact path="/InsertP" element={<div className='App'><PostPres/></div>}/>
+          <Route exact path="/Show" element={<div className='App'><GetPres/></div>}/>
+        </Routes>
+        
+    </Router>
+      
+     
     </div>
+
+    
   );
 }
 
