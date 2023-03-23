@@ -1,11 +1,28 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import {Card, CardContent, Typography} from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useLocation } from "react-router-dom"
+import { useNavigate } from 'react-router-dom';
 
 
 
 function GetPes()  {
+  const navigate = useNavigate();
+
+  const handleDelete = (id, sucursal) => {
+    axios
+      .delete('http://localhost:3001/delete/prestamo', { data: { id, sucursal } })
+      .then(() => {
+        console.log(`Deleted `);
+      })
+      .catch((err) => {
+        console.error(err);
+        console.log('Deletion failed!');
+      });
+  };
+
     const [Pres, setPres] = useState([]);
     const [PresT, setPresT] = useState([]);
     const location = useLocation()
@@ -71,6 +88,9 @@ function GetPes()  {
                 ${cantidad}
               </Typography>
             </CardContent>
+            <IconButton aria-label="delete" size="small" onClick={(event) => handleDelete(id, sucursal, event)}>
+                <DeleteIcon fontSize="inherit" />
+              </IconButton>
           </Card>
           ))}
           </div>
